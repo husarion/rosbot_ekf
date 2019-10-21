@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="rosbot" type="msgs_conversion" name="msgs_conversion" respawn="true">
+  </node>
+</launch>

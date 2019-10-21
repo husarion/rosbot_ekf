@@ -1,0 +1,16 @@
+<launch>
+    <arg name="rosbot_pro" default="false"/>
+    
+    <include unless="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch"/>
+    
+    <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
+        <arg name="serial_port" value="/dev/ttyS4"/>
+        <arg name="serial_baudrate" value="230400"/>
+    </include>
+
+    <include file="$(find rosbot_ekf)/launch/message_conversion.launch"/>
+
+    <include file="$(find rosbot_ekf)/launch/rosbot_ekf.launch"/>
+
+</launch>
+
