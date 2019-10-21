@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "rosbot/Configuration.h"
+#include "rosbot_ekf/Configuration.h"
 #include "std_msgs/String.h"
 #include <actionlib/client/terminal_state.h>
 #include <actionlib_msgs/GoalStatusArray.h>
@@ -11,7 +11,7 @@ void statusCallback(const actionlib_msgs::GoalStatusArray &msg)
 
     if (msg.status_list.size())
     {
-        rosbot::Configuration configuration_msg;
+        rosbot_ekf::Configuration configuration_msg;
         
         int status = msg.status_list[0].status;
         if (status != last_status)

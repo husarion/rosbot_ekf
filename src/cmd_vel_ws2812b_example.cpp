@@ -1,12 +1,12 @@
 #include "ros/ros.h"
-#include "rosbot/Configuration.h"
+#include "rosbot_ekf/Configuration.h"
 #include "std_msgs/String.h"
 #include <geometry_msgs/Twist.h>
 #include <cmath>
 
 void cmdCallback(const geometry_msgs::Twist &msg)
 {
-    rosbot::Configuration configuration_msg;
+    rosbot_ekf::Configuration configuration_msg;
     
     static int last_state = 0;
     // 1 - moving
