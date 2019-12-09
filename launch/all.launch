@@ -11,6 +11,8 @@
     <include file="$(find rosbot_ekf)/launch/message_conversion.launch"/>
 
     <include file="$(find rosbot_ekf)/launch/rosbot_ekf.launch"/>
+    
+    <node pkg="tf" type="static_transform_publisher" name="imu_publisher" args="0 0 0.02 0 0 0 base_link imu_link 100" />
 
 </launch>
 
