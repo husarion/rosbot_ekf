@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "rosbot_ekf/Imu.h"       
+#include "rosbot_ekf_custom/Imu.h"       
 #include "geometry_msgs/PoseStamped.h"
 #include "sensor_msgs/Imu.h"
 #include "nav_msgs/Odometry.h"
@@ -13,6 +13,8 @@
 
 ros::Publisher *odom_pub_ptr;
 ros::Publisher *imu_pub_ptr;
+std::string tf_prefix_;
+bool has_prefix;
 
 void poseCallback(const geometry_msgs::PoseStamped &pose_msg)
 {
@@ -36,18 +38,27 @@ void poseCallback(const geometry_msgs::PoseStamped &pose_msg)
   
   
   odom_msg.header = pose_msg.header;
-
+  if(has_prefix){
+  odom_msg.header.frame_id = tf_prefix_ + "/odom";
+  }
+  else{
+    odom_msg.header.frame_id = "odom";
+  }
   odom_pub_ptr->publish(odom_msg);
 
 }
 
-void mpuCallback(const rosbot_ekf::Imu &mpu_msg)
+void mpuCallback(const rosbot_ekf_custom::Imu &mpu_msg)
 {
   sensor_msgs::Imu imu_msg;
   
   imu_msg.header = mpu_msg.header;
+  if(has_prefix){
+  imu_msg.header.frame_id = tf_prefix_ + "/imu_link";
+}
+else{
   imu_msg.header.frame_id = "imu_link";
-
+}
   imu_msg.orientation.x = mpu_msg.orientation.x;
   imu_msg.orientation.y = mpu_msg.orientation.y;
   imu_msg.orientation.z = mpu_msg.orientation.z;
@@ -88,13 +99,15 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
-  ros::Publisher imu_pub = n.advertise<sensor_msgs::Imu>("/imu", 1);
+  
+  has_prefix=ros::param::get("~tf_prefix", tf_prefix_);
+  ros::Publisher imu_pub = n.advertise<sensor_msgs::Imu>("imu", 1);
   imu_pub_ptr = &imu_pub;
-  ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("/odom/wheel", 1);
+  ros::Publisher odom_pub = n.advertise<nav_msgs::Odometry>("odom/wheel", 1);
   odom_pub_ptr = &odom_pub;
 
-  ros::Subscriber mpu_sub = n.subscribe("/mpu9250", 1000, mpuCallback);
-  ros::Subscriber pose_sub = n.subscribe("/pose", 1000, poseCallback);
+  ros::Subscriber mpu_sub = n.subscribe("mpu9250", 1000, mpuCallback);
+  ros::Subscriber pose_sub = n.subscribe("pose", 1000, poseCallback);
 
   ros::Rate loop_rate(20);
 
