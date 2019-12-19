@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include "rosbot_ekf_custom/Imu.h"       
+#include "rosbot_ekf/Imu.h"       
 #include "geometry_msgs/PoseStamped.h"
 #include "sensor_msgs/Imu.h"
 #include "nav_msgs/Odometry.h"
@@ -48,7 +48,7 @@ void poseCallback(const geometry_msgs::PoseStamped &pose_msg)
 
 }
 
-void mpuCallback(const rosbot_ekf_custom::Imu &mpu_msg)
+void mpuCallback(const rosbot_ekf::Imu &mpu_msg)
 {
   sensor_msgs::Imu imu_msg;
   
