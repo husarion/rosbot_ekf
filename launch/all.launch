@@ -1,12 +1,14 @@
 <launch>
     <arg name="rosbot_pro" default="false"/>
+    <arg name="mecanum" default="false"/>
     
     <include unless="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch"/>
     
     <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
         <arg name="serial_port" value="/dev/ttyS4"/>
-        <arg name="serial_baudrate" value="460800"/>
     </include>
+    
+    <node if="$(arg mecanum)" pkg="rosservice" type="rosservice" name="set_kinematics" args="call --wait /config 'SKIN' 'MEC'"/>
 
     <include file="$(find rosbot_ekf)/launch/message_conversion.launch"/>
 
