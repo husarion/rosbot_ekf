@@ -17,10 +17,6 @@ find_package(catkin REQUIRED COMPONENTS
   tf
 )
 
-## Generate messages in the 'msg' folder
-add_message_files(FILES
-  Imu.msg
-)
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -34,13 +30,6 @@ add_service_files(
 #   Action1.action
 #   Action2.action
 # )
-
-## Generate added messages and services with any dependencies listed here
-generate_messages(DEPENDENCIES
-  std_msgs
-  geometry_msgs
-)
-
 
 catkin_package(
   CATKIN_DEPENDS roscpp rospy
