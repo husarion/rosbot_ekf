@@ -1,14 +1,10 @@
 #include "ros/ros.h"
 #include "geometry_msgs/PoseStamped.h"
-#include "sensor_msgs/Imu.h"
 #include "nav_msgs/Odometry.h"
 
 #define ODOM_COV 0.005
-#define PI 3.1415
-#define G_ACCEL 9.8066
 
 ros::Publisher *odom_pub_ptr;
-ros::Publisher *imu_pub_ptr;
 std::string tf_prefix_;
 bool has_prefix;
 
