@@ -6,7 +6,7 @@ The default package for the new ROSbot firmware.
 First, you need to install robot localization pkg to use the `rosbot_ekf` package:
 
 ```
-$ sudo apt-get install ros-kinetic-robot-localization
+$ sudo apt-get install ros-<distro>-robot-localization
 ```
 
 After that, clone the `rosbot_ekf` repo to your `ros_ws/src` directory and compile with `catkin_make`.
@@ -40,7 +40,7 @@ For PRO version it will look like that:
 
 ## Authors
 
-* **Adam Krawczyk** - *Initial work* - [adamkrawczyk](https://github.com/adamkrawczyk)
+* **Adam Krawczyk** - [adamkrawczyk](https://github.com/adamkrawczyk)
 * **Szymon Szantula** - [byq77](https://github.com/byq77)
 
 ## License

@@ -1,8 +1,10 @@
 #include "ros/ros.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "nav_msgs/Odometry.h"
+#include <string>
 
 #define ODOM_COV 0.005
+#define MAIN_LOOP_RATE 20
 
 ros::Publisher *odom_pub_ptr;
 std::string tf_prefix_;
@@ -54,7 +56,7 @@ int main(int argc, char **argv)
 
   ros::Subscriber pose_sub = n.subscribe("pose", 1000, poseCallback);
 
-  ros::Rate loop_rate(20);
+  ros::Rate loop_rate(MAIN_LOOP_RATE);
 
   while (ros::ok())
   {
